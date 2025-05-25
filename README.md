@@ -89,5 +89,4 @@ pip install numpy pandas matplotlib yfinance scikit-learn tensorflow
 
 ## 👨‍💻 Author
 
-Project by: *[Your Name or Team Name]*  
-Course: Time Series Forecasting / Deep Learning / Applied Finance
+Project by: *VO LE HIEU*  
