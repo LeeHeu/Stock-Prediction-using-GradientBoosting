@@ -109,7 +109,6 @@ pip install pandas numpy matplotlib scikit-learn xgboost
 ## 💡 Future Improvements
 
 - Incorporate news sentiment or macroeconomic indicators
-- Try deep learning models (LSTM/GRU)
 - Develop a web-based dashboard for live prediction updates
 
 ## 📚 References
