@@ -89,7 +89,7 @@ pip install pandas numpy matplotlib scikit-learn xgboost
 ## 📚 References
 
 - Historical stock data from HOSE/VNDirect
-- Scikit-learn, XGBoost official documentation
+- Scikit-learn, GradientBoosting official documentation
 - Time series forecasting and financial ML literature
 
 ## 🤝 Authors
