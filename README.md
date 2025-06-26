@@ -73,31 +73,6 @@ The **Gradient Boosting Regressor** model is **not genuinely useful** for absolu
 
 ---
 
-### 🛠️ Realistic and Useful Suggestions
-
-| Suggestion                                  | Reason                                                                 |
-|---------------------------------------------|------------------------------------------------------------------------|
-| Predict returns instead of absolute prices  | Less influenced by long trends; easier to learn; smaller scale.        |
-| Predict direction (classification task)     | More relevant to practical use (Buy/Sell decisions).                   |
-| Try XGBoost + SHAP for feature importance   | Identify and remove noisy/irrelevant features.                         |
-| Use feature reduction (PCA or selection)    | Reduce multicollinearity and overfitting risk.                         |
-| Tune hyperparameters                        | Default GBM settings are weak and suboptimal.                          |
-
----
-
-### 📌 Summary Table
-
-| Category              | Evaluation                                      |
-|-----------------------|-------------------------------------------------|
-| Code structure        | ⭐️⭐️⭐️⭐️☆                                        |
-| Feature richness      | ⭐️⭐️⭐️⭐️⭐️                                        |
-| Evaluation setup      | ⭐️⭐️⭐️⭐️☆                                        |
-| RMSE result quality   | ⭐️⭐️☆☆☆                                        |
-| Compared to Naïve     | ❌ 2 tickers did worse than baseline            |
-| Real-world usability  | ⚠️ Very limited if predicting absolute prices  |
-
----
-
 ## 🛠️ Dependencies
 
 To run this project, install the following Python libraries:
