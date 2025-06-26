@@ -1,92 +1,123 @@
+# Stock Price Prediction using Machine Learning
 
-# 📈 Stock Price Prediction using Deep Learning (FPT, MSN, PNJ, VIC)
+This project leverages machine learning techniques to predict stock prices of leading Vietnamese companies using historical data. It focuses on analyzing and forecasting the stock performance of companies such as **FPT**, **PNJ**, **VIC**, and **MSN**.
 
-## 🔍 Overview
-
-This project focuses on predicting stock prices of **four major Vietnamese companies (FPT, MSN, PNJ, VIC)** based on historical data from **December 2018 to December 2020**.  
-We employ deep learning models such as **LSTM** and **CNN-1D** to forecast future price movements and evaluate model performance.
-
----
-
-## 🗃️ Dataset
-
-- **Source:** Yahoo Finance via `yfinance` API
-- **Timeframe:** 2018-12 to 2020-12 (daily granularity)
-- **Companies:**
-  - `FPT` (FPT Corporation)
-  - `MSN` (Masan Group)
-  - `PNJ` (Phu Nhuan Jewelry)
-  - `VIC` (Vingroup)
-
-Each stock dataset includes:
-- `Open`, `High`, `Low`, `Close`, `Volume`
-- Preprocessed using `MinMaxScaler` or `RobustScaler`
-
----
-
-## 🧪 Methodology
-
-### 📊 Data Preprocessing
-- Downloaded using `yfinance`
-- Missing value handling, scaling with `MinMaxScaler`
-- Created sliding windows of historical prices as input
-
-### 🤖 Model Architectures
-- **LSTM (Long Short-Term Memory):**
-  - Captures long-range dependencies in stock trends
-- **CNN-1D:**
-  - Extracts spatial patterns in time-series windows
-- Combined layers with:
-  - `Dropout`, `BatchNormalization`, `Dense` output
-  - Early stopping and learning rate scheduling
-
-### 🧮 Evaluation
-- Train/Test split by time (no data leakage)
-- Loss: `MSE`, `MAE`
-- Visual comparison of predicted vs. actual stock prices
-
----
-
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
-├── Model.ipynb                # Main notebook
-├── README.md                  # Project documentation
+├── data/
+│   ├── FPT.csv
+│   ├── PNJ.csv
+│   ├── VIC.csv
+│   └── MSN.csv
+├── stockprediction.ipynb
+└── README.md
 ```
 
+## 📊 Data Description
+
+The dataset includes historical stock prices with the following columns:
+- `Date`: Trading date
+- `Open`: Opening price
+- `High`: Highest price during the day
+- `Low`: Lowest price during the day
+- `Close`: Closing price
+- `Volume`: Trading volume
+
+Each `.csv` file corresponds to one listed company on the Vietnamese stock market.
+
+## 🧠 Methodology
+
+The prediction model is built using time series and machine learning techniques. Key steps include:
+
+1. **Data Preprocessing**
+   - Handling missing values
+   - Normalizing price data
+   - Feature engineering (moving averages, returns, etc.)
+
+2. **Model Training**
+   - Splitting data into training and testing sets
+   - Using regression models to predict future closing prices
+
+3. **Evaluation**
+   - Evaluation metrics: RMSE, MAPE
+   - Visual comparison of actual vs predicted prices
+
+## 📈 Results
+
+The model demonstrates the ability to track stock price trends with reasonable accuracy, especially for stocks with stable long-term movement like FPT.
+
+### 📊 2. Result Evaluation: Visual & Honest
+
+| Ticker | RMSE   | Naïve RMSE | Δ (%)    | MAPE   | Honest Commentary                               |
+|--------|--------|-------------|----------|--------|-------------------------------------------------|
+| FPT    | 0.1534 | 0.1008      | -52.2%   | 0.20%  | Much worse than baseline. The model failed.     |
+| MSN    | 0.0738 | 0.0806      | +8.5%    | 0.07%  | Slightly better than baseline, modest gain.     |
+| PNJ    | 0.0881 | 0.0876      | -0.6%    | 0.09%  | Almost no improvement, likely just noise.       |
+| VIC    | 0.0917 | 0.1118      | +17.9%   | 0.06%  | Best among the four, with relatively solid gain.|
+
 ---
 
-## 📈 Sample Results
+### 🎯 Practical Implications
 
-- LSTM model was able to track overall trend in closing prices.
-- CNN-1D provided faster convergence but may be less stable on noisy stocks.
-- Model performance can be improved by:
-  - Incorporating technical indicators (RSI, MACD)
-  - Using external sentiment/news signals
+- Only **VIC** and **MSN** outperformed the baseline model.
+- **FPT** performed very poorly — RMSE was 50% worse than the naïve forecast, suggesting trend misdirection or severe overfitting.
+- **MAPE values** are low, indicating close absolute predictions — **but this does not guarantee trend accuracy**.
 
 ---
 
-## ⚙️ Requirements
+### ⚠️ Overall Assessment
+
+💣 **Blunt Conclusion**:  
+The **Gradient Boosting Regressor** model is **not genuinely useful** for absolute closing price prediction. In most cases, the naïve method performs even better.
+
+---
+
+### 🛠️ Realistic and Useful Suggestions
+
+| Suggestion                                  | Reason                                                                 |
+|---------------------------------------------|------------------------------------------------------------------------|
+| Predict returns instead of absolute prices  | Less influenced by long trends; easier to learn; smaller scale.        |
+| Predict direction (classification task)     | More relevant to practical use (Buy/Sell decisions).                   |
+| Try XGBoost + SHAP for feature importance   | Identify and remove noisy/irrelevant features.                         |
+| Use feature reduction (PCA or selection)    | Reduce multicollinearity and overfitting risk.                         |
+| Tune hyperparameters                        | Default GBM settings are weak and suboptimal.                          |
+
+---
+
+### 📌 Summary Table
+
+| Category              | Evaluation                                      |
+|-----------------------|-------------------------------------------------|
+| Code structure        | ⭐️⭐️⭐️⭐️☆                                        |
+| Feature richness      | ⭐️⭐️⭐️⭐️⭐️                                        |
+| Evaluation setup      | ⭐️⭐️⭐️⭐️☆                                        |
+| RMSE result quality   | ⭐️⭐️☆☆☆                                        |
+| Compared to Naïve     | ❌ 2 tickers did worse than baseline            |
+| Real-world usability  | ⚠️ Very limited if predicting absolute prices  |
+
+---
+
+## 🛠️ Dependencies
+
+To run this project, install the following Python libraries:
 
 ```bash
-Python >= 3.8
-
-# Install core libraries
-pip install numpy pandas matplotlib yfinance scikit-learn tensorflow
+pip install pandas numpy matplotlib scikit-learn xgboost
 ```
 
----
+## 💡 Future Improvements
 
-## 🚀 To Run the Notebook
+- Incorporate news sentiment or macroeconomic indicators
+- Try deep learning models (LSTM/GRU)
+- Develop a web-based dashboard for live prediction updates
 
-```python
-# Inside Model.ipynb
-- Run all cells from top to bottom
-- Make sure you have internet connection for yfinance to fetch data
-```
+## 📚 References
 
----
+- Historical stock data from HOSE/VNDirect
+- Scikit-learn, XGBoost official documentation
+- Time series forecasting and financial ML literature
 
-## 👨‍💻 Author
+## 🤝 Authors
 
-Project by: *VO LE HIEU*  
+- Project created by Vo Le Hieu
